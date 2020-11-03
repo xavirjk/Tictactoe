@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/components">
+        <file alias ="gameButton.qml">components/gameButton.qml</file>
+        <file alias ="qmldir">components/qmldir</file>
+    </qresource>
+</RCC>

@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_Lib__ticTacToe__TicTacToe_t {
-    QByteArrayData data[11];
-    char stringdata0[146];
+    QByteArrayData data[12];
+    char stringdata0[156];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -42,13 +42,15 @@ QT_MOC_LITERAL(6, 88, 17), // "ui_welcomeMessage"
 QT_MOC_LITERAL(7, 106, 9), // "ui_select"
 QT_MOC_LITERAL(8, 116, 11), // "ui_gameMode"
 QT_MOC_LITERAL(9, 128, 9), // "ui_player"
-QT_MOC_LITERAL(10, 138, 7) // "ui_slot"
+QT_MOC_LITERAL(10, 138, 7), // "ui_slot"
+QT_MOC_LITERAL(11, 146, 9) // "ui_winner"
 
     },
     "Lib::ticTacToe::TicTacToe\0selectedChanged\0"
     "\0gameModeChanged\0playerChanged\0"
     "gameInterfaced\0ui_welcomeMessage\0"
-    "ui_select\0ui_gameMode\0ui_player\0ui_slot"
+    "ui_select\0ui_gameMode\0ui_player\0ui_slot\0"
+    "ui_winner"
 };
 #undef QT_MOC_LITERAL
 
@@ -59,7 +61,7 @@ static const uint qt_meta_data_Lib__ticTacToe__TicTacToe[] = {
        0,       // classname
        0,    0, // classinfo
        4,   14, // methods
-       5,   38, // properties
+       6,   38, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
@@ -83,6 +85,7 @@ static const uint qt_meta_data_Lib__ticTacToe__TicTacToe[] = {
        8, QMetaType::Int, 0x00095003,
        9, QMetaType::QString, 0x00495003,
       10, QMetaType::Int, 0x00495003,
+      11, QMetaType::QString, 0x00095401,
 
  // properties: notify_signal_id
        0,
@@ -90,6 +93,7 @@ static const uint qt_meta_data_Lib__ticTacToe__TicTacToe[] = {
        0,
        2,
        3,
+       0,
 
        0        // eod
 };
@@ -148,6 +152,7 @@ void Lib::ticTacToe::TicTacToe::qt_static_metacall(QObject *_o, QMetaObject::Cal
         case 2: *reinterpret_cast< int*>(_v) = _t->getMode(); break;
         case 3: *reinterpret_cast< QString*>(_v) = _t->getDefaultPlayer(); break;
         case 4: *reinterpret_cast< int*>(_v) = _t->getSlot(); break;
+        case 5: *reinterpret_cast< QString*>(_v) = _t->getWinner(); break;
         default: break;
         }
     } else if (_c == QMetaObject::WriteProperty) {
@@ -208,17 +213,17 @@ int Lib::ticTacToe::TicTacToe::qt_metacall(QMetaObject::Call _c, int _id, void *
     else if (_c == QMetaObject::ReadProperty || _c == QMetaObject::WriteProperty
             || _c == QMetaObject::ResetProperty || _c == QMetaObject::RegisterPropertyMetaType) {
         qt_static_metacall(this, _c, _id, _a);
-        _id -= 5;
+        _id -= 6;
     } else if (_c == QMetaObject::QueryPropertyDesignable) {
-        _id -= 5;
+        _id -= 6;
     } else if (_c == QMetaObject::QueryPropertyScriptable) {
-        _id -= 5;
+        _id -= 6;
     } else if (_c == QMetaObject::QueryPropertyStored) {
-        _id -= 5;
+        _id -= 6;
     } else if (_c == QMetaObject::QueryPropertyEditable) {
-        _id -= 5;
+        _id -= 6;
     } else if (_c == QMetaObject::QueryPropertyUser) {
-        _id -= 5;
+        _id -= 6;
     }
 #endif // QT_NO_PROPERTIES
     return _id;

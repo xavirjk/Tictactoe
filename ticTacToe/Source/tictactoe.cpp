@@ -39,5 +39,8 @@ void TicTacToe::interfaceGame(const int &slot){
 int TicTacToe::getSlot(){
     return game ->accessComputerMove();
 }
+QString TicTacToe::getWinner(){
+    return game ->gameWinner();
+}
 }}
 

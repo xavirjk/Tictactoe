@@ -27,16 +27,20 @@ Rectangle {
                         break;
                     }
                 }
-                lineTxt.text = ticTacToe.ui_player
-                if(ticTacToe.ui_player === "X"){
-                    txt2 = "O";
+                if(!ticTacToe.ui_winner){
+                    lineTxt.text = ticTacToe.ui_player
+                    if(ticTacToe.ui_player === "X"){
+                        txt2 = "O";
+                    }
+                    else {
+                        txt2= "X"
+                    }
+                    ticTacToe.ui_slot = btnClicked;
+                    console.log(ticTacToe.ui_winner);
+                    if(!ticTacToe.ui_winner){
+                        grid.children[ticTacToe.ui_slot].children[0].text = txt2;
+                    }
                 }
-                else {
-                    txt2= "X"
-                }
-
-                ticTacToe.ui_slot = btnClicked;
-                grid.children[ticTacToe.ui_slot].children[0].text = txt2;
             }
         }
     }

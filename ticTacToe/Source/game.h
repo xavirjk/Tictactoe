@@ -14,6 +14,7 @@ public:
     void get2DIndex();
     void setPlayer(const QString &player);
     QString player() const;
+    QString gameWinner() const;
     void setMoves();
     void RefreshGame();
     int getRandom();
@@ -23,7 +24,7 @@ private:
     static const int rows = 3;
     static const int columns = 3;
     int row, column, index;
-    QString currentMove = "X";
+    QString currentMove = "X", winner = "";
     QString refMove = currentMove;
     QString gameBoard[rows][columns];
     int progressArray[9];

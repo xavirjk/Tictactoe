@@ -14,6 +14,7 @@ class TICTACTOE_EXPORT TicTacToe: public QObject
     Q_PROPERTY(int ui_gameMode READ getMode WRITE setMode CONSTANT)
     Q_PROPERTY(QString ui_player READ getDefaultPlayer WRITE setDefaultPlayer NOTIFY playerChanged)
     Q_PROPERTY(int ui_slot READ getSlot WRITE interfaceGame NOTIFY gameInterfaced)
+    Q_PROPERTY(QString ui_winner READ getWinner CONSTANT)
     Q_OBJECT
 public:
     TicTacToe(QObject *parent = nullptr);
@@ -26,6 +27,7 @@ public:
     void setMode(const int &mode);
     void interfaceGame(const int &slot);
     int getSlot();
+    QString getWinner();
 
 signals:
     void selectedChanged();

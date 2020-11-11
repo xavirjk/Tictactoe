@@ -16,6 +16,7 @@ public:
     QString player() const;
     QString gameWinner() const;
     void setMoves();
+    void searchWinner(const int &len);
     void RefreshGame();
     int getRandom();
     int accessComputerMove();

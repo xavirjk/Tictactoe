@@ -36,10 +36,12 @@ Rectangle {
                         txt2= "X"
                     }
                     ticTacToe.ui_slot = btnClicked;
-                    console.log(ticTacToe.ui_winner);
-                    if(!ticTacToe.ui_winner){
+                    if(ticTacToe.ui_winner !== "X"){
                         grid.children[ticTacToe.ui_slot].children[0].text = txt2;
                     }
+                }
+                else {
+                    console.log("Winner is",ticTacToe.ui_winner);
                 }
             }
         }

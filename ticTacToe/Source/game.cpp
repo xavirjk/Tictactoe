@@ -27,45 +27,54 @@ void Game::get2DIndex(){
         column = column - 3;
     }
 }
+void Game::searchWinner(const int &len){
+    int tempo[len];
+    int tempoTracker = 0;
+    for (int z = 0; z < len; z++){
+        tempo[z] = 0;
+    }
+    int count = 0, matIterator = 0;
+    for(int i = 0; i < 3; i++) {
+        for (int j = 0; j< 3; j++){
+            if(gameBoard[i][j] == currentMove){
+                count = count + (matIterator + j);
+                tempo[tempoTracker] = (matIterator + j);
+                tempoTracker++;
+            }
+            if(j == 2) {
+                matIterator+=3;
+            }
+        }
+    }
+    qDebug()<<"searching for winner...Count is "<<count;
+
+    if(count == 3){
+      qDebug()<<"Winner found "<<currentMove<<" With count ="<<count;
+      winner = currentMove;
+    }
+    else if( count % 3 == 0 && count != 6)
+    {
+        int diff1 = tempo[1] - tempo[0];
+        int diff2 = tempo[2] - tempo[1];
+        if(diff1 == diff2 && tempo[0] != 4 && diff1 != 2) {
+            winner = currentMove;
+            qDebug()<<"Winner found "<<currentMove;
+
+            qDebug()<<"Temp Array "<<tempo[0]<<" "<<tempo[1]<<" "<<tempo[2];
+        }
+    }
+}
 void Game::setMoves(){
     get2DIndex();
     gameBoard[row][column] = currentMove;
-    //Predict the Winner()
     if(progress < 5){
-        int tempo[3];
-        int tempoTracker = 0;
-        for (int z = 0; z < 3; z++){
-            tempo[z] = 0;
+        if(progress <= 2){
+            qDebug()<<"4 moves done";
+            searchWinner(4);
         }
-        int count = 0, matIterator = 0;
-        for(int i = 0; i < 3; i++) {
-            for (int j = 0; j< 3; j++){
-                if(gameBoard[i][j] == currentMove){
-                    count = count + (matIterator + j);
-                    tempo[tempoTracker] = (matIterator + j);
-                    tempoTracker++;
-                }
-                if(j == 2) {
-                    matIterator+=3;
-                }
-            }
-        }
-        qDebug()<<"searching for winner...Count is "<<count;
-
-        if(count == 21 || count == 3){
-          qDebug()<<"Winner found "<<currentMove<<" With count ="<<count;
-          winner = currentMove;
-        }
-        else if( count % 3 == 0 && count != 6)
-        {
-            int diff1 = tempo[1] - tempo[0];
-            int diff2 = tempo[2] - tempo[1];
-            if(diff1 == diff2) {
-                winner = currentMove;
-                qDebug()<<"Winner found "<<currentMove;
-
-                qDebug()<<"Temp Array "<<tempo[0]<<" "<<tempo[1]<<" "<<tempo[2];
-            }
+        else {
+            qDebug()<<"3 moves done";
+            searchWinner(3);
         }
     }
     temp = progressArray[progress];
@@ -93,7 +102,6 @@ void Game::initialiseGame(const int i)
     progressArray[ref] = temp;
     if(progress > -1){
         qDebug()<<"Human Move End "<<currentMove;
-        //If winner found terminate and render winner
         if(winner == ""){
             computerMove();
         }

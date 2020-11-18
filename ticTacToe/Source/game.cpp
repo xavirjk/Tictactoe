@@ -27,6 +27,23 @@ void Game::get2DIndex(){
         column = column - 3;
     }
 }
+void Game::confirmWinner(const int &count, int *tempo){
+    if(count == 3){
+      qDebug()<<"Winner found "<<currentMove<<" With count ="<<count;
+      winner = currentMove;
+    }
+    else if( count % 3 == 0 && count != 6)
+    {
+        int diff1 = tempo[1] - tempo[0];
+        int diff2 = tempo[2] - tempo[1];
+        if(diff1 == diff2 && tempo[0] != 4 && diff1 != 2) {
+            winner = currentMove;
+            qDebug()<<"Winner found "<<currentMove;
+
+            qDebug()<<"Temp Array "<<tempo[0]<<" "<<tempo[1]<<" "<<tempo[2];
+        }
+    }
+}
 void Game::searchWinner(const int &len){
     int tempo[len];
     int tempoTracker = 0;
@@ -47,21 +64,34 @@ void Game::searchWinner(const int &len){
         }
     }
     qDebug()<<"searching for winner...Count is "<<count;
-
-    if(count == 3){
-      qDebug()<<"Winner found "<<currentMove<<" With count ="<<count;
-      winner = currentMove;
-    }
-    else if( count % 3 == 0 && count != 6)
-    {
-        int diff1 = tempo[1] - tempo[0];
-        int diff2 = tempo[2] - tempo[1];
-        if(diff1 == diff2 && tempo[0] != 4 && diff1 != 2) {
-            winner = currentMove;
-            qDebug()<<"Winner found "<<currentMove;
-
-            qDebug()<<"Temp Array "<<tempo[0]<<" "<<tempo[1]<<" "<<tempo[2];
+    qDebug()<<"Len is"<<len;
+    if(len == 4){
+        int tempArrayFor4Moves[3] = {tempo[1],tempo[2],tempo[3]};
+        confirmWinner(count - tempo[0], tempArrayFor4Moves);
+        if(winner == "") {
+           int defaultCount = count;
+           for(int k = len - 1; k > 0; k-- ){
+               for(int l = 0; l < 3; l++) {
+                   if(k == l ||( k == 1 && l == 2)) {
+                       tempArrayFor4Moves[l] = tempo[l + 1];
+                   }
+                   else {
+                    tempArrayFor4Moves[l] = tempo[l];
+                   }
+               }
+               count = defaultCount;
+               count = count - tempo[k];
+               qDebug()<<"Temp Array for 4 moves"<<tempArrayFor4Moves[0]<<" "<<tempArrayFor4Moves[1]<<" "<<tempArrayFor4Moves[2];
+               qDebug()<<"Count is"<<count;
+               confirmWinner(count,tempArrayFor4Moves);
+               if(winner != "")
+                   break;
+           }
         }
+         qDebug()<<"Temp Array "<<tempo[0]<<" "<<tempo[1]<<" "<<tempo[2]<<" "<<tempo[3];
+    }
+    else {
+        confirmWinner(count,tempo);
     }
 }
 void Game::setMoves(){

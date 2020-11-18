@@ -17,6 +17,7 @@ public:
     QString gameWinner() const;
     void setMoves();
     void searchWinner(const int &len);
+    void confirmWinner(const int &count,int tempo[]);
     void RefreshGame();
     int getRandom();
     int accessComputerMove();

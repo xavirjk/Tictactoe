@@ -36,7 +36,7 @@ void Game::confirmWinner(const int &count, int *tempo){
     {
         int diff1 = tempo[1] - tempo[0];
         int diff2 = tempo[2] - tempo[1];
-        if(diff1 == diff2 && tempo[0] != 4 && diff1 != 2) {
+        if(diff1 == diff2 && (tempo[0] != 4 && tempo[0] != 5) && diff1 != 2) {
             winner = currentMove;
             qDebug()<<"Winner found "<<currentMove;
 

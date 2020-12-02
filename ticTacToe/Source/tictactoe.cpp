@@ -5,8 +5,8 @@ namespace ticTacToe {
 TicTacToe::TicTacToe(QObject *parent)
     :QObject(parent)
 {
-    welcomeMessage = "TicTacToe Game";
     game = new Game(this);
+    welcomeMessage = "TicTacToe Game";
 }
 TicTacToe::~TicTacToe(){}
 
@@ -41,6 +41,12 @@ int TicTacToe::getSlot(){
 }
 QString TicTacToe::getWinner(){
     return game ->gameWinner();
+}
+int TicTacToe::getXScores(){
+    return game->getScores("X");
+}
+int TicTacToe::getOScores(){
+    return game->getScores("O");
 }
 }}
 

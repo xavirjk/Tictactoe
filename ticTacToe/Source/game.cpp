@@ -28,21 +28,70 @@ void Game::get2DIndex(){
     }
 }
 void Game::confirmWinner(const int &count, int *tempo){
-    if(count == 3){
-      qDebug()<<"Winner found "<<currentMove<<" With count ="<<count;
-      winner = currentMove;
-    }
-    else if( count % 3 == 0 && count != 6)
-    {
-        int diff1 = tempo[1] - tempo[0];
-        int diff2 = tempo[2] - tempo[1];
-        if(diff1 == diff2 && (tempo[0] != 4 && tempo[0] != 5) && diff1 != 2) {
-            winner = currentMove;
-            qDebug()<<"Winner found "<<currentMove;
+    int arrayLen = 3;
+    if(count % 3 == 0 && count != 6) {
+        if(tempo[0] % arrayLen == 0){
+            qDebug()<<"Checking row";
+            for(int i = 0; i < arrayLen; i++) {
+                int sum = tempo[0] + i;
+                if(sum != tempo[i]){
+                    break;
+                }
+                else if(i == arrayLen - 1){
+                    winner = currentMove;
+                    qDebug()<<"Winner found "<<currentMove;
 
-            qDebug()<<"Temp Array "<<tempo[0]<<" "<<tempo[1]<<" "<<tempo[2];
+                    qDebug()<<"Temp Array "<<tempo[0]<<" "<<tempo[1]<<" "<<tempo[2];
+                }
+            }
+        }
+        if(winner == "" &&tempo[0] < arrayLen){
+            qDebug()<<"Checking col";
+            int start = tempo[0];
+            for(int i = 0; i < arrayLen; i++) {
+                if(start != tempo[i])
+                    break;
+                if(i == arrayLen - 1){
+                    winner = currentMove;
+                    qDebug()<<"Winner found "<<currentMove;
+
+                    qDebug()<<"Temp Array "<<tempo[0]<<" "<<tempo[1]<<" "<<tempo[2];
+                }
+                else
+                    start = start + arrayLen;
+            }
+        }
+        if(winner == "") {
+            qDebug()<<"Checking Diag";
+            int start = tempo[0];
+            int defaultAdder = arrayLen + 1;
+            if(tempo[0] == arrayLen - 1){
+                defaultAdder = defaultAdder - 2;
+            }
+            for(int i = 0; i < arrayLen; i++){
+                if(start != tempo[i])
+                    break;
+                if(i == arrayLen-1){
+                    winner = currentMove;
+                    qDebug()<<"Winner found "<<currentMove;
+
+                    qDebug()<<"Temp Array "<<tempo[0]<<" "<<tempo[1]<<" "<<tempo[2];
+                }
+                else
+
+                    start = start + defaultAdder;
+            }
         }
     }
+    if(winner == "X")
+        xWins++;
+    else if (winner == "O")
+        oWins++;
+    if(winner !="")
+        for (int i = 0; i < 3; i++){
+            winningMoves[i] = tempo[i];
+        }
+     qDebug()<<"XWinns "<<xWins<<" OWinns "<<oWins<<" "<<winningMoves;
 }
 void Game::searchWinner(const int &len){
     int tempo[len];
@@ -183,4 +232,11 @@ void Game::RefreshGame(){
 }
 QString Game::player() const{
     return refMove;
+}
+int Game::getScores(const QString &player){
+    if(player == "X"){
+        return xWins;
+    }
+    else
+        return oWins;
 }

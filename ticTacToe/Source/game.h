@@ -21,14 +21,17 @@ public:
     void RefreshGame();
     int getRandom();
     int accessComputerMove();
+    int getScores(const QString &player);
 
 private:
     static const int rows = 3;
     static const int columns = 3;
     int row, column, index;
+    int xWins = 0, oWins = 0;
     QString currentMove = "X", winner = "";
     QString refMove = currentMove;
     QString gameBoard[rows][columns];
+    int winningMoves[3];
     int progressArray[9];
     int progress = 8;
     int temp;

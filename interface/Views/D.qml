@@ -57,7 +57,17 @@ Item {
                     }
                     Text {
                         text: "X"
+                        anchors {
+                            left: parent.left
+                        }
                     }
+                    Text {
+                        text: ticTacToe.ui_xScores
+                        anchors {
+                            right: parent.right
+                        }
+                    }
+
                     border.color: "green"
                     border.width: 3
                     MouseArea {
@@ -84,6 +94,15 @@ Item {
                     }
                     Text {
                         text: "O"
+                        anchors {
+                            left: parent.left
+                        }
+                    }
+                    Text {
+                        text: ticTacToe.ui_oScores
+                        anchors {
+                            right: parent.right
+                        }
                     }
                     MouseArea {
                         anchors.fill: parent
@@ -107,6 +126,7 @@ Item {
             }
         }
         Rectangle {
+            id: middleRect
             width: parent.width
             color: "purple"
             anchors {
@@ -114,6 +134,19 @@ Item {
                 bottom: refresh.top
             }
             Rectangle {
+                id: gameOver
+                visible: false
+                anchors.fill: parent
+                color: parent.color
+                anchors.centerIn: parent
+                Text {
+                    text: "Game Over"
+                    anchors.centerIn: parent
+                }
+            }
+
+            Rectangle {
+                id: gridParent
                 color: "green"
                 width: 0.3*parent.width
                 height: 3/4*parent.height
@@ -161,6 +194,9 @@ Item {
                     for(let i = 0; i < grid.children.length; i++){
                         grid.children[i].children[0].text = "";
                     }
+                    scores.children[0].children[2].text = "Welcome";
+                    gridParent.visible = true;
+
                 }
             }
             states: [

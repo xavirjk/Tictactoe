@@ -56,18 +56,25 @@ Rectangle {
                         txt2= "X"
                         scores.children[0].children[2].text = txt2 + " Turn";
                     }
+                    function endGame(){
+                        gridParent.visible = false;
+                        gameOver.visible = true;
+                        xdiv.children[1].text = ticTacToe.ui_xScores
+                        odiv.children[1].text = ticTacToe.ui_oScores
+                        console.log(scores.children[0].children[2].text = ticTacToe.ui_winner + "WON!!");
+                        console.log("Winner is",ticTacToe.ui_winner);
+                    }
+
                     function callBack(){
                         ticTacToe.ui_slot = btnClicked;
                         if(ticTacToe.ui_winner){
                             if(ticTacToe.ui_winner !== ticTacToe.ui_player){
                                 grid.children[ticTacToe.ui_slot].children[0].text = txt2;
+                                timer.delay(endGame)
                             }
-                            gridParent.visible = false;
-                            gameOver.visible = true;
-                            xdiv.children[1].text = ticTacToe.ui_xScores
-                            odiv.children[1].text = ticTacToe.ui_oScores
-                            console.log(scores.children[0].children[2].text = ticTacToe.ui_winner + "WON!!");
-                            console.log("Winner is",ticTacToe.ui_winner);
+                            else {
+                                endGame();
+                            }
                         }
                         else {
                             grid.children[ticTacToe.ui_slot].children[0].text = txt2;
@@ -89,3 +96,10 @@ Rectangle {
         }
     ]
 }
+/** Next Commits
+  *Winning StrikeThrough
+  *delay for Computer Win
+  *App FontSize/Animation
+  *medium level logic
+  *multiplayer
+  */

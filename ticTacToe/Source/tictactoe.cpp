@@ -48,5 +48,8 @@ int TicTacToe::getXScores(){
 int TicTacToe::getOScores(){
     return game->getScores("O");
 }
+QJsonArray TicTacToe::getWinningMoves(){
+    return game -> getWinningMoves();
+}
 }}
 

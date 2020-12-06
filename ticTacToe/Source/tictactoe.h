@@ -17,6 +17,7 @@ class TICTACTOE_EXPORT TicTacToe: public QObject
     Q_PROPERTY(QString ui_winner READ getWinner CONSTANT)
     Q_PROPERTY(int ui_xScores READ getXScores CONSTANT)
     Q_PROPERTY(int ui_oScores READ getOScores CONSTANT)
+    Q_PROPERTY(QJsonArray ui_winningMoves READ getWinningMoves CONSTANT)
     Q_OBJECT
 public:
     TicTacToe(QObject *parent = nullptr);
@@ -31,6 +32,7 @@ public:
     int getSlot();
     int getXScores();
     int getOScores();
+    QJsonArray getWinningMoves();
     QString getWinner();
 
 signals:

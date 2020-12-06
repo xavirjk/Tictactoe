@@ -3,6 +3,7 @@
 
 #include "ticTacToe_global.h"
 #include <QObject>
+#include <QJsonArray>
 
 class TICTACTOE_EXPORT Game: public QObject
 {
@@ -22,6 +23,7 @@ public:
     int getRandom();
     int accessComputerMove();
     int getScores(const QString &player);
+    QJsonArray getWinningMoves();
 
 private:
     static const int rows = 3;
@@ -32,6 +34,7 @@ private:
     QString refMove = currentMove;
     QString gameBoard[rows][columns];
     int winningMoves[3];
+    QJsonArray winMoves;
     int progressArray[9];
     int progress = 8;
     int temp;

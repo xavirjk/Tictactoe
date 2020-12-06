@@ -87,11 +87,13 @@ void Game::confirmWinner(const int &count, int *tempo){
         xWins++;
     else if (winner == "O")
         oWins++;
-    if(winner !="")
+    if(winner !=""){
         for (int i = 0; i < 3; i++){
+            winMoves.insert(i,tempo[i]);
             winningMoves[i] = tempo[i];
         }
-     qDebug()<<"XWinns "<<xWins<<" OWinns "<<oWins<<" "<<winningMoves;
+     qDebug()<<"XWinns "<<xWins<<" OWinns "<<oWins<<" "<<winMoves.at(2)<<" Size: "<<winMoves.size();
+    }
 }
 void Game::searchWinner(const int &len){
     int tempo[len];
@@ -221,6 +223,9 @@ void Game::RefreshGame(){
         progressArray[i] = i;
     }
     for(int i = 0; i < 3; i++) {
+        if(!winMoves.isEmpty()){
+            winMoves.pop_front();
+        }
         for (int j = 0; j< 3; j++){
             gameBoard[i][j] = "";
         }
@@ -239,4 +244,7 @@ int Game::getScores(const QString &player){
     }
     else
         return oWins;
+}
+QJsonArray Game::getWinningMoves(){
+    return winMoves;
 }

@@ -193,6 +193,9 @@ Item {
                     ticTacToe.ui_gameMode = checkbox.currentIndex
                     for(let i = 0; i < grid.children.length; i++){
                         grid.children[i].children[0].text = "";
+                        grid.children[i].children[0].font.bold = false;
+                        grid.children[i].children[0].color = "#000000";
+                        grid.children[i].children[0].font.pixelSize = 20;
                     }
                     scores.children[0].children[2].text = "Welcome";
                     gridParent.visible = true;

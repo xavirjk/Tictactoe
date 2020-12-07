@@ -113,7 +113,6 @@ Rectangle {
     ]
 }
 /** Next Commits
-  *App FontSize/Animation
   *medium level logic
   *multiplayer
   */

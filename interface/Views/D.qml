@@ -22,10 +22,16 @@ Item {
                     {text: "Easy", value: 0},
                     {text: "Medium", value: 1},
                     {text: "Impossible", value: 2},
+                    {text: "Main Menu", value: 3},
                 ]
                 onActivated:{
-                    ticTacToe.ui_gameMode = currentValue
-                    contentFrame.replace("qrc:/Views/D.qml")
+
+                    if(currentValue !== 3){
+                        ticTacToe.ui_gameMode = currentValue
+                        contentFrame.replace("qrc:/Views/D.qml")
+                    }
+                    else
+                        contentFrame.replace("qrc:/Views/main.qml")
                 }
 
             }

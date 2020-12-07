@@ -59,12 +59,30 @@ Item {
                         text: "X"
                         anchors {
                             left: parent.left
+                            leftMargin: 10
+                            verticalCenter: parent.verticalCenter
+                        }
+                        font {
+                            pixelSize: 20
+                            bold: true
+                            family: "monospace"
                         }
                     }
                     Text {
-                        text: ticTacToe.ui_xScores
+                        text: if(ticTacToe.ui_xScores > 0){
+                                  text = ticTacToe.ui_xScores
+                              } else {
+                                  text = "-"
+                              }
+
                         anchors {
                             right: parent.right
+                            rightMargin: 10
+                            verticalCenter: parent.verticalCenter
+                        }
+                        font {
+                            pixelSize: 20
+                            bold: true
                         }
                     }
 
@@ -96,12 +114,29 @@ Item {
                         text: "O"
                         anchors {
                             left: parent.left
+                            leftMargin: 10
+                            verticalCenter: parent.verticalCenter
+                        }
+                        font {
+                            pixelSize: 20
+                            bold: true
+                            family: "monospace"
                         }
                     }
                     Text {
-                        text: ticTacToe.ui_oScores
+                        text: if(ticTacToe.ui_oScores > 0){
+                                  text = ticTacToe.ui_oScores
+                              } else {
+                                  text = "-"
+                              }
                         anchors {
                             right: parent.right
+                            rightMargin: 10
+                            verticalCenter: parent.verticalCenter
+                        }
+                        font {
+                            pixelSize: 20
+                            bold: true
                         }
                     }
                     MouseArea {
@@ -122,6 +157,7 @@ Item {
                     }
 
                     text: "Welcome"
+                    font.pixelSize: 18
                 }
             }
         }
@@ -140,8 +176,10 @@ Item {
                 color: parent.color
                 anchors.centerIn: parent
                 Text {
-                    text: "Game Over"
+                    text: "GAMEOVER"
                     anchors.centerIn: parent
+                    font.pixelSize: 30
+                    font.bold: true
                 }
             }
 

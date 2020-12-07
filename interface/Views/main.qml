@@ -16,6 +16,12 @@ Item {
             color: "beige"
             Text {
                 text : ticTacToe.ui_welcomeMessage
+                font.pixelSize: 18
+                font.italic: true
+                font.bold: true
+                anchors.centerIn: parent
+                color: "#008000"
+
             }
         }
     }
@@ -61,6 +67,9 @@ Item {
                 color: "beige"
                 Text {
                     text: "Multiplayer"
+                    font.pixelSize: 16
+                    font.bold: true
+                    anchors.centerIn: parent
                 }
                 MouseArea {
                     anchors.fill: parent
@@ -89,6 +98,9 @@ Item {
                 anchors.right: parent.right
                 Text {
                     text: "Vs Comp"
+                    font.pixelSize: 16
+                    font.bold: true
+                    anchors.centerIn: parent
                 }
                 MouseArea {
                     anchors.fill: parent
@@ -129,6 +141,9 @@ Item {
             Text {
                 id: okButton
                 text: "Start"
+                font.pixelSize: 16
+                anchors.centerIn: parent
+                font.letterSpacing: 2
             }
             MouseArea {
                 anchors.fill: parent

@@ -2,11 +2,14 @@
 #include <ctime>
 #include <cstdlib>
 #include <QDebug>
+#include <iostream>
+using namespace std;
 Game::Game(QObject *parent)
     :QObject(parent){
     for(int i = 0; i < 9; i++){
         progressArray[i] = i;
     }
+    controller = new ModeController(this);
 }
 Game::~Game(){}
 
@@ -159,6 +162,7 @@ void Game::setMoves(){
         }
     }
     temp = progressArray[progress];
+    qDebug()<<"Progress "<<progress;
     progressArray[progress] = index;
     progress--;
 }
@@ -167,10 +171,10 @@ void Game::initialiseGame(const int i)
     if(winner != ""){
         return;
     }
-    int ref = 0;
     currentMove = refMove;
     index = i;
     qDebug()<<" Human Move Start"<<currentMove;
+    int ref = 0;
     for(int j = 0; j < 9; j++){
         if(progressArray[j] == i){
             ref = j;
@@ -196,10 +200,30 @@ void Game::computerMove(){
         currentMove = "X";
     }
     qDebug()<<"Computer Move Start "<<currentMove;
-    int random = getRandom();
-    index = progressArray[random];
-    setMoves();
-    progressArray[random] = temp;
+    if(progress > 5){
+        int random = getRandom();
+        qDebug()<<"Random  is:"<<random;
+        index = progressArray[random];
+        qDebug()<<"Index is:"<<index;
+        setMoves();
+        progressArray[random] = temp;
+    }
+    else {
+        qDebug()<<"progress is:"<<progress;
+        index = controller->mode2Slot(progressArray,progress);
+        qDebug()<<"Slot is:"<<index;
+        int ref = 0;
+        for(int j = 0; j < 9; j++){
+            if(progressArray[j] == index){
+                ref = j;
+                break;
+            }
+        }
+        setMoves();
+        progressArray[ref] = temp;
+    }
+    qDebug()<<"Progress Array is:"<<endl;
+    qDebug()<<progressArray[0]<<" "<<progressArray[1]<<" "<<progressArray[2]<<" "<<progressArray[3]<<" "<<progressArray[4]<<" "<<progressArray[5]<<" "<<progressArray[6]<<" "<<progressArray[7]<<" "<<progressArray[8];
     qDebug()<<"Computer Move End "<<currentMove;
 }
 void Game::setPlayer(const QString &player){
@@ -244,6 +268,9 @@ int Game::getScores(const QString &player){
     }
     else
         return oWins;
+}
+int *Game::accessProgressArray(){
+    return progressArray;
 }
 QJsonArray Game::getWinningMoves(){
     return winMoves;

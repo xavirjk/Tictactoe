@@ -4,7 +4,7 @@
 #include "ticTacToe_global.h"
 #include <QObject>
 #include <QJsonArray>
-
+#include <controller/mode_controller.h>
 class TICTACTOE_EXPORT Game: public QObject
 {
 public:
@@ -23,9 +23,11 @@ public:
     int getRandom();
     int accessComputerMove();
     int getScores(const QString &player);
+    int *accessProgressArray();
     QJsonArray getWinningMoves();
 
 private:
+    ModeController *controller;
     static const int rows = 3;
     static const int columns = 3;
     int row, column, index;

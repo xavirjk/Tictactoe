@@ -18,21 +18,23 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 INCLUDEPATH += Source
 SOURCES += \
+    Source/controller/mode_controller.cpp\
     Source/depends/sort.cpp \
-    Source/game.cpp \
     Source/modes/mode2.cpp \
+    Source/game.cpp \
     #Source/mode3.cpp \
-    Source/tictactoe.cpp \
-    Source/controller/mode_controller.cpp
+    Source/tictactoe.cpp
+
 
 HEADERS += \
+    Source/controller/mode_controller.h\
     Source/depends/sort.h \
-    Source/game.h \
     Source/modes/mode2.h \
+    Source/game.h \
     #Source/mode3.h \
     Source/ticTacToe_global.h \
-    Source/tictactoe.h \
-    Source/controller/mode_controller.h
+    Source/tictactoe.h
+
 
 # Default rules for deployment.
 unix {

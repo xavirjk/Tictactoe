@@ -14,12 +14,14 @@ public:
     int viewItem();
     void closexHuman(int start);
     void confirmdataSets();
+    //void checkProgress(int progress);
     void myFunction(const int progressArray[9], int defaultOrigin, int i);
 private:
     HeapSort *heapsort;
-    int slot,boardIncrement;
+    int slot = -1,boardIncrement;
     int setProp;
     bool state;
+    int defaultCount = 0;
     int *slotsArr;
     int *statArr;
 };

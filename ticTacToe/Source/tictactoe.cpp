@@ -19,11 +19,10 @@ QString TicTacToe::getSelected() const{
     return selected;
 }
 void TicTacToe::setMode(const int &mode){
-    gameMode = mode;
-    game -> RefreshGame();
+    game -> RefreshGame(mode);
 }
 int TicTacToe::getMode() const{
-    return  gameMode;
+    return game ->gameMode();
 }
 void TicTacToe::setDefaultPlayer(const QString &player){
     game ->setPlayer(player);

@@ -10,6 +10,7 @@ Game::Game(QObject *parent)
         progressArray[i] = i;
     }
     controller = new ModeController(this);
+    heapsort = new HeapSort(this);
 }
 Game::~Game(){}
 
@@ -30,60 +31,92 @@ void Game::get2DIndex(){
         column = column - 3;
     }
 }
-void Game::confirmWinner(const int &count, int *tempo){
-    int arrayLen = 3;
-    if(count % 3 == 0 && count != 6) {
-        if(tempo[0] % arrayLen == 0){
-            qDebug()<<"Checking row";
-            for(int i = 0; i < arrayLen; i++) {
-                int sum = tempo[0] + i;
-                if(sum != tempo[i]){
-                    break;
-                }
-                else if(i == arrayLen - 1){
-                    winner = currentMove;
-                    qDebug()<<"Winner found "<<currentMove;
 
-                    qDebug()<<"Temp Array "<<tempo[0]<<" "<<tempo[1]<<" "<<tempo[2];
-                }
+void Game::searchWinner(){
+    int workinProgArray[3];
+    for (int z = 0; z < 3; z++){
+        workinProgArray[z] = 0;
+    }
+    int row_iterate = 0;
+    int col_iterate = 0;
+    int diag_iterate = 0;
+    qDebug()<<"checking new Row";
+    for(int i = 0; i < rows; i++){
+        for(int j = 0; j < columns; j++){
+            if(gameBoard[i][j] != currentMove)
+                break;
+            else
+                workinProgArray[j] = row_iterate + j;
+            if(j == 2){
+                winner = currentMove;
+                qDebug()<<"winner found "<<currentMove;
+                qDebug()<<"working progress Arr "<<workinProgArray[0]<<" "<<workinProgArray[1]<< " "<<workinProgArray[2];
             }
         }
-        if(winner == "" &&tempo[0] < arrayLen){
-            qDebug()<<"Checking col";
-            int start = tempo[0];
-            for(int i = 0; i < arrayLen; i++) {
-                if(start != tempo[i])
-                    break;
-                if(i == arrayLen - 1){
-                    winner = currentMove;
-                    qDebug()<<"Winner found "<<currentMove;
-
-                    qDebug()<<"Temp Array "<<tempo[0]<<" "<<tempo[1]<<" "<<tempo[2];
+        if(winner != "")
+            break;
+        row_iterate+=3;
+    }
+    if(winner == ""){
+        qDebug()<<"checking new Col";
+        int trackCol = 0;
+        col_iterate = 0;
+        for(int i = 0; i < 3; i++){
+            for(int j = 0; j < 3; j++){
+                if(gameBoard[j][i] != currentMove){
+                    col_iterate = trackCol;
+                     break;
                 }
-                else
-                    start = start + arrayLen;
+                else {
+                    workinProgArray[j] = col_iterate;
+                }
+                if(j == 2){
+                    winner = currentMove;
+                    qDebug()<<"winner found "<<currentMove;
+                    qDebug()<<"working progress Arr "<<workinProgArray[0]<<" "<<workinProgArray[1]<< " "<<workinProgArray[2];
+                }
+                col_iterate = col_iterate + 3;
             }
+            col_iterate+=1;
+            trackCol+=1;
+            if(winner != "")
+                break;
         }
-        if(winner == "") {
-            qDebug()<<"Checking Diag";
-            int start = tempo[0];
-            int defaultAdder = arrayLen + 1;
-            if(tempo[0] == arrayLen - 1){
-                defaultAdder = defaultAdder - 2;
+    }
+    if(winner == ""){
+        qDebug()<<"checking new Diag l to R";
+        for(int i = 0; i < 3; i++){
+            if(gameBoard[i][i] == currentMove){
+                workinProgArray[i] = diag_iterate;
             }
-            for(int i = 0; i < arrayLen; i++){
-                if(start != tempo[i])
-                    break;
-                if(i == arrayLen-1){
-                    winner = currentMove;
-                    qDebug()<<"Winner found "<<currentMove;
-
-                    qDebug()<<"Temp Array "<<tempo[0]<<" "<<tempo[1]<<" "<<tempo[2];
-                }
-                else
-
-                    start = start + defaultAdder;
+            else
+                break;
+            if(i == 2){
+                winner = currentMove;
+                qDebug()<<"winner found "<<currentMove;
+                qDebug()<<"working progress Arr "<<workinProgArray[0]<<" "<<workinProgArray[1]<< " "<<workinProgArray[2];
             }
+            diag_iterate += 4;
+        }
+    }
+    if(winner == ""){
+         qDebug()<<"checking new Diag R to l";
+        int j = 2;
+        diag_iterate = 2;
+        for(int i = 0; i < 3; i++){
+            if(gameBoard[i][j] == currentMove){
+                workinProgArray[i] = diag_iterate;
+                j -= 1;
+            }
+            else {
+                break;
+            }
+            if(i == 2){
+                winner = currentMove;
+                qDebug()<<"winner found "<<currentMove;
+                qDebug()<<"working progress Arr "<<workinProgArray[0]<<" "<<workinProgArray[1]<< " "<<workinProgArray[2];
+            }
+            diag_iterate += 2;
         }
     }
     if(winner == "X")
@@ -92,78 +125,21 @@ void Game::confirmWinner(const int &count, int *tempo){
         oWins++;
     if(winner !=""){
         for (int i = 0; i < 3; i++){
-            winMoves.insert(i,tempo[i]);
-            winningMoves[i] = tempo[i];
+            winMoves.insert(i,workinProgArray[i]);
+            winningMoves[i] = workinProgArray[i];
         }
      qDebug()<<"XWinns "<<xWins<<" OWinns "<<oWins<<" "<<winMoves.at(2)<<" Size: "<<winMoves.size();
-    }
-}
-void Game::searchWinner(const int &len){
-    int tempo[len];
-    int tempoTracker = 0;
-    for (int z = 0; z < len; z++){
-        tempo[z] = 0;
-    }
-    int count = 0, matIterator = 0;
-    for(int i = 0; i < 3; i++) {
-        for (int j = 0; j< 3; j++){
-            if(gameBoard[i][j] == currentMove){
-                count = count + (matIterator + j);
-                tempo[tempoTracker] = (matIterator + j);
-                tempoTracker++;
-            }
-            if(j == 2) {
-                matIterator+=3;
-            }
-        }
-    }
-    qDebug()<<"searching for winner...Count is "<<count;
-    qDebug()<<"Len is"<<len;
-    if(len == 4){
-        int tempArrayFor4Moves[3] = {tempo[1],tempo[2],tempo[3]};
-        confirmWinner(count - tempo[0], tempArrayFor4Moves);
-        if(winner == "") {
-           int defaultCount = count;
-           for(int k = len - 1; k > 0; k-- ){
-               for(int l = 0; l < 3; l++) {
-                   if(k == l ||( k == 1 && l == 2)) {
-                       tempArrayFor4Moves[l] = tempo[l + 1];
-                   }
-                   else {
-                    tempArrayFor4Moves[l] = tempo[l];
-                   }
-               }
-               count = defaultCount;
-               count = count - tempo[k];
-               qDebug()<<"Temp Array for 4 moves"<<tempArrayFor4Moves[0]<<" "<<tempArrayFor4Moves[1]<<" "<<tempArrayFor4Moves[2];
-               qDebug()<<"Count is"<<count;
-               confirmWinner(count,tempArrayFor4Moves);
-               if(winner != "")
-                   break;
-           }
-        }
-         qDebug()<<"Temp Array "<<tempo[0]<<" "<<tempo[1]<<" "<<tempo[2]<<" "<<tempo[3];
-    }
-    else {
-        confirmWinner(count,tempo);
     }
 }
 void Game::setMoves(){
     get2DIndex();
     gameBoard[row][column] = currentMove;
-    if(progress < 5){
-        if(progress <= 2){
-            qDebug()<<"4 moves done";
-            searchWinner(4);
-        }
-        else {
-            qDebug()<<"3 moves done";
-            searchWinner(3);
-        }
-    }
     temp = progressArray[progress];
     qDebug()<<"Progress "<<progress;
     progressArray[progress] = index;
+    if(progress < 5){
+       searchWinner();
+    }
     progress--;
 }
 void Game::initialiseGame(const int i)
@@ -182,8 +158,10 @@ void Game::initialiseGame(const int i)
         }
     }
     if(progress > -1) {
+        qDebug()<<"prog > -1"<<progress;
         setMoves();
     }
+    qDebug()<<"progress HMD "<<progress;
     progressArray[ref] = temp;
     if(progress > -1){
         qDebug()<<"Human Move End "<<currentMove;
@@ -200,28 +178,45 @@ void Game::computerMove(){
         currentMove = "X";
     }
     qDebug()<<"Computer Move Start "<<currentMove;
-    if(progress > 5){
+    if(mode == 0){
         int random = getRandom();
-        qDebug()<<"Random  is:"<<random;
         index = progressArray[random];
-        qDebug()<<"Index is:"<<index;
-        setMoves();
-        progressArray[random] = temp;
-    }
-    else {
-        qDebug()<<"progress is:"<<progress;
-        index = controller->mode2Slot(progressArray,progress);
-        qDebug()<<"Slot is:"<<index;
-        int ref = 0;
-        for(int j = 0; j < 9; j++){
-            if(progressArray[j] == index){
-                ref = j;
-                break;
-            }
+        if(progress < 5) {
+            int tempIndex = index;
+            index = controller ->mode2Slot(progressArray,progress,"mode1");
+            if(index == -1)
+                index = tempIndex;
         }
         setMoves();
-        progressArray[ref] = temp;
+        progressArray[random] = temp;
+        //qDebug()<<"Random  is:"<<random;
+        //qDebug()<<"Index is:"<<index;
     }
+    else if( mode == 1){
+        if(progress > 5){
+            int random = getRandom();
+            index = progressArray[random];
+            setMoves();
+            progressArray[random] = temp;
+            //qDebug()<<"Random  is:"<<random;
+            //qDebug()<<"Index is:"<<index;
+        }
+        else {
+            qDebug()<<"progress is:"<<progress;
+            index = controller->mode2Slot(progressArray,progress, "mode2");
+            qDebug()<<"Slot is:"<<index;
+            int ref = 0;
+            for(int j = 0; j < 9; j++){
+                if(progressArray[j] == index){
+                    ref = j;
+                    break;
+                }
+            }
+            setMoves();
+            progressArray[ref] = temp;
+        }
+    }
+    qDebug()<<"progress to start HM "<<progress;
     qDebug()<<"Progress Array is:"<<endl;
     qDebug()<<progressArray[0]<<" "<<progressArray[1]<<" "<<progressArray[2]<<" "<<progressArray[3]<<" "<<progressArray[4]<<" "<<progressArray[5]<<" "<<progressArray[6]<<" "<<progressArray[7]<<" "<<progressArray[8];
     qDebug()<<"Computer Move End "<<currentMove;
@@ -239,10 +234,13 @@ int Game::getRandom(){
 int Game::accessComputerMove(){
     return index;
 }
+int Game::gameMode(){
+    return mode;
+}
 QString Game::gameWinner() const{
     return winner;
 }
-void Game::RefreshGame(){
+void Game::RefreshGame(int gameMode){
     for(int i = 0;i < 9; i++) {
         progressArray[i] = i;
     }
@@ -257,6 +255,7 @@ void Game::RefreshGame(){
     progress = 8;
     currentMove = "X";
     winner = "";
+    mode = gameMode;
     qDebug() <<"game Mode Changed";
 }
 QString Game::player() const{

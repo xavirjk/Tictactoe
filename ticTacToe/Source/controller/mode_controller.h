@@ -8,7 +8,7 @@ class TICTACTOE_EXPORT ModeController: public QObject{
 public:
     ModeController(QObject *parent = nullptr);
     ~ModeController();
-    int mode2Slot (const int progressArray[9],int progress);
+    int mode2Slot (const int progressArray[9],int progress, QString data);
 private:
     Medium *mode2;
 };

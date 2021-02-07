@@ -21,7 +21,6 @@ SOURCES += \
 RESOURCES += \
     components.qrc \
     qml.qrc
-
 LIBS += -L$$PWD/../BUILDS/ticTacToe/debug -lticTacToe
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH = $$PWD

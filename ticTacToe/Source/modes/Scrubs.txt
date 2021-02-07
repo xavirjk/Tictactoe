@@ -1,0 +1,149 @@
+/*void Game::confirmWinner(const int &count, int *tempo){
+    int arrayLen = 3;
+    if(count % 3 == 0 && count != 6) {
+        if(tempo[0] % arrayLen == 0){
+            qDebug()<<"Checking row";
+            for(int i = 0; i < arrayLen; i++) {
+                int sum = tempo[0] + i;
+                if(sum != tempo[i]){
+                    break;
+                }
+                else if(i == arrayLen - 1){
+                    winner = currentMove;
+                    qDebug()<<"Winner found "<<currentMove;
+
+                    qDebug()<<"Temp Array "<<tempo[0]<<" "<<tempo[1]<<" "<<tempo[2];
+                }
+            }
+        }
+        if(winner == "" &&tempo[0] < arrayLen){
+            qDebug()<<"Checking col";
+            int start = tempo[0];
+            for(int i = 0; i < arrayLen; i++) {
+                if(start != tempo[i])
+                    break;
+                if(i == arrayLen - 1){
+                    winner = currentMove;
+                    qDebug()<<"Winner found "<<currentMove;
+
+                    qDebug()<<"Temp Array "<<tempo[0]<<" "<<tempo[1]<<" "<<tempo[2];
+                }
+                else
+                    start = start + arrayLen;
+            }
+        }
+        if(winner == "") {
+            qDebug()<<"Checking Diag";
+            int start = tempo[0];
+            int defaultAdder = arrayLen + 1;
+            if(tempo[0] == arrayLen - 1){
+                defaultAdder = defaultAdder - 2;
+            }
+            for(int i = 0; i < arrayLen; i++){
+                if(start != tempo[i])
+                    break;
+                if(i == arrayLen-1){
+                    winner = currentMove;
+                    qDebug()<<"Winner found "<<currentMove;
+
+                    qDebug()<<"Temp Array "<<tempo[0]<<" "<<tempo[1]<<" "<<tempo[2];
+                }
+                else
+
+                    start = start + defaultAdder;
+            }
+        }
+    }
+    if(winner == "X")
+        xWins++;
+    else if (winner == "O")
+        oWins++;
+    if(winner !=""){
+        for (int i = 0; i < 3; i++){
+            winMoves.insert(i,tempo[i]);
+            winningMoves[i] = tempo[i];
+        }
+     qDebug()<<"XWinns "<<xWins<<" OWinns "<<oWins<<" "<<winMoves.at(2)<<" Size: "<<winMoves.size();
+    }
+}*/
+/*if(winner == ""){
+    //Search 2D array Diags left to Right
+    qDebug()<<"checking new Diad l to R";
+    for(int i = 0; i < 3; i++){
+        if(gameBoard[i][i] == currentMove){
+            workinProgArray[i] = diag_iterate;
+        }
+        else
+            break;
+        diag_iterate += 4;
+    }
+}
+if(winner == ""){
+    //Search 2D array Diags Right to Left
+     qDebug()<<"checking new Diad R to l";
+    int makeTrack = 2;
+    diag_iterate = 2;
+    for(int i = 0; i < 3; i++){
+        for(int j = makeTrack; j >= 0; j--){
+            if(gameBoard[i][j] == currentMove){
+                workinProgArray[i] = diag_iterate;
+                makeTrack -= 1;
+                break;
+            }
+            else {
+                break;
+            }
+
+        }
+        diag_iterate += 2;
+    }
+}*/
+/* int count = 0;
+ int tempo[len];
+ int tempoTracker = 0;
+ for (int z = 0; z < len; z++){
+     tempo[z] = 0;
+ }
+ int matIterator = 0;
+ for(int i = 0; i < 3; i++) {
+     for (int j = 0; j< 3; j++){
+         if(gameBoard[i][j] == currentMove){
+             count = count + (matIterator + j);
+             tempo[tempoTracker] = (matIterator + j);
+             tempoTracker++;
+         }
+         if(j == 2) {
+             matIterator+=3;
+         }
+     }
+ }
+ qDebug()<<"searching for winner...Count is "<<count;
+ qDebug()<<"Len is"<<len;
+ if(len == 4){
+     int tempArrayFor4Moves[3] = {tempo[1],tempo[2],tempo[3]};
+     confirmWinner(count - tempo[0], tempArrayFor4Moves);
+     if(winner == "") {
+        int defaultCount = count;
+        for(int k = len - 1; k > 0; k-- ){
+            for(int l = 0; l < 3; l++) {
+                if(k == l ||( k == 1 && l == 2)) {
+                    tempArrayFor4Moves[l] = tempo[l + 1];
+                }
+                else {
+                 tempArrayFor4Moves[l] = tempo[l];
+                }
+            }
+            count = defaultCount;
+            count = count - tempo[k];
+            qDebug()<<"Temp Array for 4 moves"<<tempArrayFor4Moves[0]<<" "<<tempArrayFor4Moves[1]<<" "<<tempArrayFor4Moves[2];
+            qDebug()<<"Count is"<<count;
+            confirmWinner(count,tempArrayFor4Moves);
+            if(winner != "")
+                break;
+        }
+     }
+      qDebug()<<"Temp Array "<<tempo[0]<<" "<<tempo[1]<<" "<<tempo[2]<<" "<<tempo[3];
+ }
+ else {
+     confirmWinner(count,tempo);
+ }*/

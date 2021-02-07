@@ -2,13 +2,13 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <tictactoe.h>
-
+#include <QIcon>
 int main(int argc, char *argv[])
 {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
     QGuiApplication app(argc, argv);
-
+    app.setWindowIcon(QIcon("C:/Users/johnt/Pictures/Screenshots/Screenshot (13).png"));
     qmlRegisterType<Lib::ticTacToe::TicTacToe>("TTT", 1,0, "TicTacToe");
     Lib::ticTacToe::TicTacToe ticTacToe;
     QQmlApplicationEngine engine;

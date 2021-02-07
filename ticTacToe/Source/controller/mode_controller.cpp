@@ -5,6 +5,6 @@ ModeController::ModeController(QObject *parent):
 }
 ModeController::~ModeController(){}
 
-int ModeController::mode2Slot(const int *progressArray, int progress){
-    return mode2 ->getSlot(progressArray, progress);
+int ModeController::mode2Slot(const int *progressArray, int progress, QString data){
+    return mode2 ->getSlot(progressArray, progress, data);
 }

@@ -69,8 +69,13 @@ Rectangle {
                         }
                     }
                     else {
-                        grid.children[ticTacToe.ui_slot].children[0].text = txt2;
-                        scores.children[0].children[2].text = ticTacToe.ui_player + " Turn";
+                        if(btnClicked !== ticTacToe.ui_slot){
+                            grid.children[ticTacToe.ui_slot].children[0].text = txt2;
+                            scores.children[0].children[2].text = ticTacToe.ui_player + " Turn";
+                        }
+                        else {
+                            scores.children[0].children[2].text = "X-O"
+                        }
                     }
                 }
                 btn.radius = 5

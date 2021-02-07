@@ -44,7 +44,6 @@ private:
     Game *game;
     QString welcomeMessage;
     QString selected = "";
-    int gameMode = 1;
     QString Player = "X";
 };
 

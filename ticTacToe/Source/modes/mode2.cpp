@@ -7,11 +7,12 @@ Medium::Medium(QObject *parent)
     heapsort = new HeapSort(this);
 }
 Medium::~Medium(){}
-int Medium::getSlot(const int progressArray[9],int progress, QString data) {
+int Medium::getSlot(const int progressArray[9],int progress, QString dataReceived) {
     int count = 0;
     staticProgress = progress;
     staticProgressArray = progressArray;
-    if(data != "mode2"){
+    data = dataReceived;
+    if(data == "mode1"){
         defaultCount = ((8 - (staticProgress + 2))/2) + 1;
         statArr = new int[defaultCount];
         for(int i = 8; i > staticProgress; i--){
@@ -189,6 +190,14 @@ void Medium::closexHuman(int start){
     }
 }
 void Medium::start_a_possibleWinningMove(){
+    ///Pending Implementation
+    /*int *computerMove = new int[defaultCount - 1];
+    int count = 0;
+    for(int i = 8; i > staticProgress; i--){
+        if(i % 2 != 0)
+            computerMove[count] = staticProgressArray[i];
+    }
+    computerMove = heapsort->heapSort(computerMove, defaultCount - 1);*/
     state = 0;
     for(int i = 8; i > staticProgress; i--){
         qDebug()<<"start win move iterator:"<<i<<" state "<<state;
@@ -249,11 +258,6 @@ void Medium::start_a_possibleWinningMove(){
                     boardIncrement = 2;
                     myFunction(2,i);
                 }
-                /*srand(time(0));
-                slot = rand()%(staticProgress + 1);
-                qDebug()<<"steps to go, slot rand "<<slot;*/
-                //Return Any empty slot
-                //chance to access Diag
             }
             if(!state) {
                 qDebug()<<"exeception execution";
@@ -276,7 +280,11 @@ void Medium::confirmdataSets(){
                 break;
             }
         }
-        if(k == 1)
+        if(k == 1 && data == "mode3" && (slotsArr[0] == 4 || slotsArr[1] == 4)){
+            slot = 4;
+        }
+
+        else
             slot = slotsArr[0];
     }
 }

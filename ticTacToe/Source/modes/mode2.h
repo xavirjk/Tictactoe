@@ -28,6 +28,7 @@ private:
        , staticProgress;
     int setProp;
     bool state;
+    QString data;
 
 };
 

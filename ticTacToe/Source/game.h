@@ -11,7 +11,7 @@ class TICTACTOE_EXPORT Game: public QObject
 public:
     Game(QObject *parent = nullptr);
     ~Game();
-    void initialiseGame(const int index);
+    void initialiseGame(const int index,QString playselect);
     void computerMove();
     void get2DIndex();
     void setPlayer(const QString &player);
@@ -19,13 +19,16 @@ public:
     QString gameWinner() const;
     void setMoves();
     void searchWinner();
-    //void confirmWinner(const int &count,int tempo[]);
+    void counterProgress();
     void RefreshGame(int gameMode);
     int getRandom();
+    int selectRandomFromIndexes(const int list[]);
     int accessComputerMove();
     int getScores(const QString &player);
     int *accessProgressArray();
     int gameMode();
+    void selectedMode(const QString SorM);
+    int inProgress();
     QJsonArray getWinningMoves();
 
 private:
@@ -38,6 +41,7 @@ private:
     QString currentMove = "X", winner = "";
     QString refMove = currentMove;
     QString gameBoard[rows][columns];
+    QString SorM;
     int winningMoves[3];
     QJsonArray winMoves;
     int progressArray[9];

@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_Lib__ticTacToe__TicTacToe_t {
-    QByteArrayData data[15];
-    char stringdata0[194];
+    QByteArrayData data[16];
+    char stringdata0[212];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -46,7 +46,8 @@ QT_MOC_LITERAL(10, 138, 7), // "ui_slot"
 QT_MOC_LITERAL(11, 146, 9), // "ui_winner"
 QT_MOC_LITERAL(12, 156, 10), // "ui_xScores"
 QT_MOC_LITERAL(13, 167, 10), // "ui_oScores"
-QT_MOC_LITERAL(14, 178, 15) // "ui_winningMoves"
+QT_MOC_LITERAL(14, 178, 17), // "ui_gameInProgress"
+QT_MOC_LITERAL(15, 196, 15) // "ui_winningMoves"
 
     },
     "Lib::ticTacToe::TicTacToe\0selectedChanged\0"
@@ -54,7 +55,7 @@ QT_MOC_LITERAL(14, 178, 15) // "ui_winningMoves"
     "gameInterfaced\0ui_welcomeMessage\0"
     "ui_select\0ui_gameMode\0ui_player\0ui_slot\0"
     "ui_winner\0ui_xScores\0ui_oScores\0"
-    "ui_winningMoves"
+    "ui_gameInProgress\0ui_winningMoves"
 };
 #undef QT_MOC_LITERAL
 
@@ -65,7 +66,7 @@ static const uint qt_meta_data_Lib__ticTacToe__TicTacToe[] = {
        0,       // classname
        0,    0, // classinfo
        4,   14, // methods
-       9,   38, // properties
+      10,   38, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
@@ -92,7 +93,8 @@ static const uint qt_meta_data_Lib__ticTacToe__TicTacToe[] = {
       11, QMetaType::QString, 0x00095401,
       12, QMetaType::Int, 0x00095401,
       13, QMetaType::Int, 0x00095401,
-      14, QMetaType::QJsonArray, 0x00095401,
+      14, QMetaType::Int, 0x00095401,
+      15, QMetaType::QJsonArray, 0x00095401,
 
  // properties: notify_signal_id
        0,
@@ -100,6 +102,7 @@ static const uint qt_meta_data_Lib__ticTacToe__TicTacToe[] = {
        0,
        2,
        3,
+       0,
        0,
        0,
        0,
@@ -165,7 +168,8 @@ void Lib::ticTacToe::TicTacToe::qt_static_metacall(QObject *_o, QMetaObject::Cal
         case 5: *reinterpret_cast< QString*>(_v) = _t->getWinner(); break;
         case 6: *reinterpret_cast< int*>(_v) = _t->getXScores(); break;
         case 7: *reinterpret_cast< int*>(_v) = _t->getOScores(); break;
-        case 8: *reinterpret_cast< QJsonArray*>(_v) = _t->getWinningMoves(); break;
+        case 8: *reinterpret_cast< int*>(_v) = _t->getProgress(); break;
+        case 9: *reinterpret_cast< QJsonArray*>(_v) = _t->getWinningMoves(); break;
         default: break;
         }
     } else if (_c == QMetaObject::WriteProperty) {
@@ -226,17 +230,17 @@ int Lib::ticTacToe::TicTacToe::qt_metacall(QMetaObject::Call _c, int _id, void *
     else if (_c == QMetaObject::ReadProperty || _c == QMetaObject::WriteProperty
             || _c == QMetaObject::ResetProperty || _c == QMetaObject::RegisterPropertyMetaType) {
         qt_static_metacall(this, _c, _id, _a);
-        _id -= 9;
+        _id -= 10;
     } else if (_c == QMetaObject::QueryPropertyDesignable) {
-        _id -= 9;
+        _id -= 10;
     } else if (_c == QMetaObject::QueryPropertyScriptable) {
-        _id -= 9;
+        _id -= 10;
     } else if (_c == QMetaObject::QueryPropertyStored) {
-        _id -= 9;
+        _id -= 10;
     } else if (_c == QMetaObject::QueryPropertyEditable) {
-        _id -= 9;
+        _id -= 10;
     } else if (_c == QMetaObject::QueryPropertyUser) {
-        _id -= 9;
+        _id -= 10;
     }
 #endif // QT_NO_PROPERTIES
     return _id;

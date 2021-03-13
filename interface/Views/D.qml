@@ -5,6 +5,21 @@ Item {
     function getCurrentIndex(){
         checkbox.currentIndex = ticTacToe.ui_gameMode
     }
+    function displayModel (select) {
+        var theModel =[
+                    {text: "Easy", value: 0},
+                    {text: "Medium", value: 1},
+                    {text: "Impossible", value: 2},
+                    {text: select, value: 3},
+                ];
+        return theModel
+    }
+    function toggleDivs() {
+        xdiv.border.color = "green"
+        xdiv.border.width = 3
+        odiv.border.color = "black"
+        odiv.border.width = 1
+    }
 
     Component.onCompleted: getCurrentIndex();
     Rectangle{
@@ -18,20 +33,29 @@ Item {
                 id: checkbox
                 textRole: "text"
                 valueRole: "value"
-                model: [
-                    {text: "Easy", value: 0},
-                    {text: "Medium", value: 1},
-                    {text: "Impossible", value: 2},
-                    {text: "Main Menu", value: 3},
-                ]
+                model: ticTacToe.ui_select === "multiplayer" ?[{text:"play vs comp",value: 3}]:displayModel("multiplayer")
                 onActivated:{
-
-                    if(currentValue !== 3){
+                    var val = currentValue;
+                    ticTacToe.ui_player = "X";
+                    if(val === 3){
+                        val = 1;
+                        if(currentText === "multiplayer")
+                            ticTacToe.ui_select = "multiplayer";
+                        else
+                            ticTacToe.ui_select = "simulation";
+                    }
+                    ticTacToe.ui_gameMode = val;
+                    contentFrame.replace("qrc:/Views/D.qml")
+                    /*if(currentValue !== 3){
                         ticTacToe.ui_gameMode = currentValue
                         contentFrame.replace("qrc:/Views/D.qml")
-                    }
-                    else
+                    }*/
+                   /* else {
+                        ticTacToe.ui_gameMode = 1
                         contentFrame.replace("qrc:/Views/main.qml")
+
+                    }*/
+
                 }
 
             }
@@ -96,13 +120,13 @@ Item {
                     border.width: 3
                     MouseArea {
                         anchors.fill: parent
-                        onClicked: {
-                            xdiv.border.color = "green"
-                            xdiv.border.width = 3
-                            odiv.border.color = "black"
-                            odiv.border.width = 1
-                            ticTacToe.ui_player = "X";
-                        }
+                        onClicked: if(ticTacToe.ui_gameInProgress == 8){
+                                       xdiv.border.color = "green"
+                                       xdiv.border.width = 3
+                                       odiv.border.color = "black"
+                                       odiv.border.width = 1
+                                       ticTacToe.ui_player = "X";
+                                   }
                     }
 
                 }
@@ -147,7 +171,7 @@ Item {
                     }
                     MouseArea {
                         anchors.fill: parent
-                        onClicked: {
+                        onClicked: if(ticTacToe.ui_gameInProgress == 8){
                             odiv.border.color = "green"
                             odiv.border.width = 3
                             xdiv.border.color = "black"
@@ -243,7 +267,9 @@ Item {
                     }
                     scores.children[0].children[2].text = "Welcome";
                     gridParent.visible = true;
-
+                    if(ticTacToe.ui_select === "multiplayer") {
+                        toggleDivs();
+                    }
                 }
             }
             states: [

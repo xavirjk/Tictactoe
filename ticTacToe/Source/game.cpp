@@ -142,31 +142,28 @@ void Game::setMoves(){
     }
     progress--;
 }
-void Game::initialiseGame(const int i)
-{
+void Game::initialiseGame(const int i,QString playSelect){
     if(winner != ""){
         return;
     }
     currentMove = refMove;
     index = i;
     qDebug()<<" Human Move Start"<<currentMove;
-    int ref = 0;
-    for(int j = 0; j < 9; j++){
-        if(progressArray[j] == i){
-            ref = j;
-            break;
-        }
-    }
-    if(progress > -1) {
-        qDebug()<<"prog > -1"<<progress;
-        setMoves();
-    }
-    qDebug()<<"progress HMD "<<progress;
-    progressArray[ref] = temp;
+    counterProgress();
     if(progress > -1){
         qDebug()<<"Human Move End "<<currentMove;
         if(winner == ""){
-            computerMove();
+            if(playSelect == "simulation" || playSelect == ""){
+                 computerMove();
+            }
+            else {
+                if(currentMove == "X"){
+                    refMove = "O";
+                }
+                else {
+                    refMove = "X";
+                }
+            }
         }
     }
 }
@@ -189,8 +186,6 @@ void Game::computerMove(){
         }
         setMoves();
         progressArray[random] = temp;
-        //qDebug()<<"Random  is:"<<random;
-        //qDebug()<<"Index is:"<<index;
     }
     else if( mode == 1){
         if(progress > 5){
@@ -198,34 +193,60 @@ void Game::computerMove(){
             index = progressArray[random];
             setMoves();
             progressArray[random] = temp;
-            //qDebug()<<"Random  is:"<<random;
-            //qDebug()<<"Index is:"<<index;
         }
         else {
-            qDebug()<<"progress is:"<<progress;
             index = controller->mode2Slot(progressArray,progress, "mode2");
-            qDebug()<<"Slot is:"<<index;
-            int ref = 0;
-            for(int j = 0; j < 9; j++){
-                if(progressArray[j] == index){
-                    ref = j;
-                    break;
-                }
-            }
-            setMoves();
-            progressArray[ref] = temp;
+            counterProgress();
         }
     }
-    qDebug()<<"progress to start HM "<<progress;
-    qDebug()<<"Progress Array is:"<<endl;
-    qDebug()<<progressArray[0]<<" "<<progressArray[1]<<" "<<progressArray[2]<<" "<<progressArray[3]<<" "<<progressArray[4]<<" "<<progressArray[5]<<" "<<progressArray[6]<<" "<<progressArray[7]<<" "<<progressArray[8];
+    else if (mode == 2) {
+        int indexSelect = progressArray[8];
+        if(progress == 7){
+            if(indexSelect == 4){
+                int arr[] = {0,2,6,8};
+                index = selectRandomFromIndexes(arr);
+            }
+            else if(indexSelect % 2 == 0)
+                index = 4;
+            else{
+                if(indexSelect == 1)
+                    index = 0;
+                else if(indexSelect == 3)
+                    index = 0;
+                else if(indexSelect == 5)
+                    index = 2;
+                else if (indexSelect == 7)
+                    index = 6;
+            }
+            counterProgress();
+        }
+        else {
+            index = controller->mode2Slot(progressArray,progress, "mode3");
+            counterProgress();
+        }
+    }
     qDebug()<<"Computer Move End "<<currentMove;
+}
+void Game::counterProgress(){
+    int ref = 0;
+    for(int j = 0; j < 9; j++){
+        if(progressArray[j] == index){
+            ref = j;
+            break;
+        }
+    }
+    setMoves();
+    progressArray[ref] = temp;
 }
 void Game::setPlayer(const QString &player){
     if(progress == 8){
         currentMove = player;
         refMove = currentMove;
     }
+}
+int Game::selectRandomFromIndexes(const int *list){
+    srand(time(0));
+    return list[rand()%5];
 }
 int Game::getRandom(){
     srand(time(0));
@@ -254,12 +275,20 @@ void Game::RefreshGame(int gameMode){
     }
     progress = 8;
     currentMove = "X";
+    qDebug()<<"exec sorm"<<SorM;
+    if(SorM == "multiplayer"){
+        qDebug()<<"exec";
+        refMove = currentMove;
+    }
     winner = "";
     mode = gameMode;
-    qDebug() <<"game Mode Changed";
+    qDebug() <<"game Mode Changed"<<mode <<" "<<currentMove << refMove;
 }
 QString Game::player() const{
     return refMove;
+}
+void Game::selectedMode(const QString val){
+    SorM = val;
 }
 int Game::getScores(const QString &player){
     if(player == "X"){
@@ -270,6 +299,9 @@ int Game::getScores(const QString &player){
 }
 int *Game::accessProgressArray(){
     return progressArray;
+}
+int Game::inProgress(){
+    return progress;
 }
 QJsonArray Game::getWinningMoves(){
     return winMoves;

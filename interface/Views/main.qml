@@ -156,9 +156,9 @@ Item {
                          console.log("selection",ticTacToe.ui_select);
                     }
                     else {
-                        contentFrame.replace("qrc:/Views/D.qml");
                         console.log("Play  vs Computer")
                     }
+                    contentFrame.replace("qrc:/Views/D.qml");
                 }
             }
             states: [

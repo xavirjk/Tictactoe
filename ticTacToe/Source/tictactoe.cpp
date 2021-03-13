@@ -12,6 +12,7 @@ TicTacToe::~TicTacToe(){}
 
 void TicTacToe::setSelected(const QString &select){
     selected = select;
+    game ->selectedMode(selected);
 
 }
 
@@ -33,7 +34,7 @@ QString TicTacToe::getDefaultPlayer() const{
 }
 
 void TicTacToe::interfaceGame(const int &slot){
-    game ->initialiseGame(slot);
+    game ->initialiseGame(slot,selected);
 }
 int TicTacToe::getSlot(){
     return game ->accessComputerMove();
@@ -46,6 +47,9 @@ int TicTacToe::getXScores(){
 }
 int TicTacToe::getOScores(){
     return game->getScores("O");
+}
+int TicTacToe::getProgress(){
+    return  game ->inProgress();
 }
 QJsonArray TicTacToe::getWinningMoves(){
     return game -> getWinningMoves();

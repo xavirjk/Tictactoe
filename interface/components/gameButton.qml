@@ -73,7 +73,10 @@ Rectangle {
                             grid.children[ticTacToe.ui_slot].children[0].text = txt2;
                             scores.children[0].children[2].text = ticTacToe.ui_player + " Turn";
                         }
-                        else {
+                        else if(ticTacToe.ui_select !== "multiplayer") {
+                            scores.children[0].children[2].text = "X-O"
+                        }
+                        else if(ticTacToe.ui_select === "multiplayer" && ticTacToe.ui_gameInProgress == -1) {
                             scores.children[0].children[2].text = "X-O"
                         }
                     }
@@ -90,7 +93,8 @@ Rectangle {
                     console.log("Winner is",ticTacToe.ui_winner);
                 }
                 else {
-                    console.log(ticTacToe.ui_player);
+                    console.log('player',ticTacToe.ui_player);
+
                     scores.children[0].children[2].text = ticTacToe.ui_player + " Turn";
                     lineTxt.text = ticTacToe.ui_player
                     if(ticTacToe.ui_player === "X"){
@@ -103,6 +107,7 @@ Rectangle {
                         scores.children[0].children[2].text = txt2 + " Turn";
                     }
                     timer.delay(callBack, 500);
+                    //ticTacToe.ui_select =="multiplayer" ? console.log('pending'): timer.delay(callBack, 500)
                 }
             }
 

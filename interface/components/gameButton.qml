@@ -107,7 +107,6 @@ Rectangle {
                         scores.children[0].children[2].text = txt2 + " Turn";
                     }
                     timer.delay(callBack, 500);
-                    //ticTacToe.ui_select =="multiplayer" ? console.log('pending'): timer.delay(callBack, 500)
                 }
             }
 
@@ -122,7 +121,3 @@ Rectangle {
         }
     ]
 }
-/** Next Commits
-  *medium level logic
-  *multiplayer
-  */

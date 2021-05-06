@@ -5,6 +5,7 @@ Item {
     function getCurrentIndex(){
         checkbox.currentIndex = ticTacToe.ui_gameMode
     }
+
     function displayModel (select) {
         var theModel =[
                     {text: "Easy", value: 0},
@@ -19,6 +20,10 @@ Item {
         xdiv.border.width = 3
         odiv.border.color = "black"
         odiv.border.width = 1
+    }
+
+    function viewText(){
+
     }
 
     Component.onCompleted: getCurrentIndex();
@@ -45,16 +50,13 @@ Item {
                             ticTacToe.ui_select = "simulation";
                     }
                     ticTacToe.ui_gameMode = val;
-                    contentFrame.replace("qrc:/Views/D.qml")
-                    /*if(currentValue !== 3){
-                        ticTacToe.ui_gameMode = currentValue
+                    if(ticTacToe.ui_gameMode == 2){
+                        gridParent.visible = false;
+                        gameOver.visible = true;
+                    }
+                    else {
                         contentFrame.replace("qrc:/Views/D.qml")
-                    }*/
-                   /* else {
-                        ticTacToe.ui_gameMode = 1
-                        contentFrame.replace("qrc:/Views/main.qml")
-
-                    }*/
+                    }
 
                 }
 
@@ -206,7 +208,7 @@ Item {
                 color: parent.color
                 anchors.centerIn: parent
                 Text {
-                    text: "GAMEOVER"
+                    text: checkbox.currentIndex === 2 ?"DEV IN PROGRESS": "GAMEOVER"
                     anchors.centerIn: parent
                     font.pixelSize: 30
                     font.bold: true
@@ -266,7 +268,10 @@ Item {
                         grid.children[i].children[0].font.pixelSize = 20;
                     }
                     scores.children[0].children[2].text = "Welcome";
-                    gridParent.visible = true;
+                    if(ticTacToe.ui_gameMode !== 2){
+                        gameOver.visible = false;
+                        gridParent.visible = true;
+                    }
                     if(ticTacToe.ui_select === "multiplayer") {
                         toggleDivs();
                     }

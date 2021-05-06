@@ -1,6 +1,0 @@
-<?xml version="1.0"?>
-<RCC>
-    <qresource prefix="/components">
-        <file alias="qmldir">../../interface/components/qmldir</file>
-    </qresource>
-</RCC>

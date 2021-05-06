@@ -200,6 +200,7 @@ void Game::computerMove(){
         }
     }
     else if (mode == 2) {
+        //in progress
         int indexSelect = progressArray[8];
         if(progress == 7){
             if(indexSelect == 4){
